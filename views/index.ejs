@@ -1,82 +1,49 @@
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Atomic &mdash; Free Business Website Template by Colorlib</title>
-    <link rel="stylesheet" href="/css/style.css">
-  </head>
-  <body>
-  
-  <div class="js-animsition animsition" id="site-wrap" data-animsition-in-class="fade-in" data-animsition-out-class="fade-out">
-
-
-    <header class="templateux-navbar dark" role="banner">
-     
-      <div class="container"  data-aos="fade-down">
-        <div class="row">
-
-          <div class="col-3 templateux-logo">
-            <a href="index.html" class="animsition-link">Atomic</a>
-          </div>
-          <nav class="col-9 site-nav">
-            <button class="d-block d-md-none hamburger hamburger--spin templateux-toggle templateux-toggle-light ml-auto templateux-toggle-menu" data-toggle="collapse" data-target="#mobile-menu" aria-controls="mobile-menu" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="hamburger-box">
-                <span class="hamburger-inner"></span>
-              </span>
-            </button> <!-- .templateux-toggle -->
-
-            <ul class="sf-menu templateux-menu d-none d-md-block">
-              <li class="active">
-                <a href="index.html" class="animsition-link">Home</a>
-              </li>
-              <li><a href="about.html" class="animsition-link">About</a></li>
-              <li>
-                <a href="services.html" class="animsition-link">Services</a>
-                <ul>
-                  <li><a href="#">Service 1</a></li>
-                  <li><a href="#">Service 2</a></li>
-                  <li>
-                    <a href="#">Service 3</a>
-                    <ul>
-                      <li><a href="#">Service 1</a></li>
-                      <li><a href="#">Service 2</a></li>
-                      <li>
-                        <a href="#">Service 3</a>
-                        <ul>
-                          <li><a href="#">Service 1</a></li>
-                          <li><a href="#">Service 2</a></li>
-                          <li><a href="#">Service 3</a></li>
-                        </ul>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </li>
-              <li><a href="gallery.html" class="animsition-link">Gallery</a></li>
-              <li><a href="blog.html" class="animsition-link">Blog</a></li>
-              <li><a href="contact.html" class="animsition-link">Contact</a></li>
-            </ul> <!-- .templateux-menu -->
-
-          </nav> <!-- .site-nav -->
-          
-
-        </div> <!-- .row -->
-      </div> <!-- .container -->
-    </header> <!-- .templateux-navba -->
-    
+<% include partials/header.ejs %>    
     <div class="templateux-cover" style="background-image: url(images/slider-1.jpg);">
       <div class="container">
         <div class="row align-items-lg-center">
           <div class="col-lg-6 text-center order-lg-2">
-            <a href="https://vimeo.com/channels/staffpicks/93951774"  data-fancybox class="templateux-block-play"><span class="ion-ios-play"></span></a>
-          </div>
+            
+        </div>
           <div class="col-lg-6 order-lg-1">
-            <h1 class="heading mb-3" data-aos="fade-up">Design a better website template.</h1>
-            <p class="lead mb-5" data-aos="fade-up"  data-aos-delay="100">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-            <p data-aos="fade-up" data-aos-delay="200"><a href="#" class="btn btn-primary py-3 px-4">Free Download</a></p>
-          </div>
+            <h1 class="heading mb-3 text-white" data-aos="fade-up">Design a better website template.</h1>
+            <p class="lead mb-5 text-white" data-aos="fade-up"  data-aos-delay="100">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+            <a href="#myModal" class="trigger-btn btn-primary btn-lg" data-toggle="modal">Get Started</a>
+        </div>
+        <!-- Modal HTML -->
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog modal-login">
+                    <div class="modal-content">
+                        <div class="modal-header">				
+                            <h4 class="modal-title">User Login</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="/login" method="post">
+                                <div class="form-group">
+                                    <i class="fa fa-user"></i>
+                                    <input type="text" class="form-control" placeholder="Username" name="username" required="required">
+                                </div>
+                                <div class="form-group">
+                                    <i class="fa fa-lock"></i>
+                                    <input type="number" class="form-control" placeholder="Mobile Number" name="mobile" required="required">					
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
+                                </div>
+                            </form>				
+                            
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#">Sign Up? Nah, just login!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>     
+
           
         </div>
+        
       </div>
     </div> <!-- .templateux-cover -->
 
@@ -139,13 +106,13 @@
       <div class="container-fluid"  data-aos="fade-up">
         <div class="owl-carousel wide-slider">
           <div class="item">
-            <img src="images/slider-2.jpg" alt="Free template by TemplateUX.com" class="img-fluid">
+            <img src="images/slider-2.jpg" alt="Powered by TrueBeat" class="img-fluid">
           </div>
           <div class="item">
-            <img src="images/slider-3.jpg" alt="Free template by TemplateUX.com" class="img-fluid">
+            <img src="images/slider-3.jpg" alt="Powered by TrueBeat" class="img-fluid">
           </div>
           <div class="item">
-            <img src="images/slider-4.jpg" alt="Free template by TemplateUX.com" class="img-fluid">
+            <img src="images/slider-4.jpg" alt="Powered by TrueBeat" class="img-fluid">
           </div>
         </div> <!-- .owl-carousel -->
       </div>
@@ -224,58 +191,33 @@
       <div class="d-flex flex-column flex-sm-row">
         <a href="#" class="block-thumbnail-1 one-third" style="background-image: url('images/slider-2.jpg'); " data-aos="fade">
           <div class="block-thumbnail-content">
-            <h2>When she reached the first</h2>
-            <span class="post-meta">Design, Illustration</span>
+            <h2>Innovative Health Ring</h2>
+            
           </div>
         </a>
         <a href="#" class="block-thumbnail-1 two-third" style="background-image: url('images/slider-1.jpg'); " data-aos="fade" data-aos-delay="100">
           <div class="block-thumbnail-content">
-            <h2>Duden flows by their place</h2>
-            <span class="post-meta">Design, Illustration</span>
+            <h2>Be Part of a healthier world</h2>
+            
           </div>
         </a>
       </div>
       <div class="d-flex flex-column flex-sm-row">
         <a href="#" class="block-thumbnail-1 two-third" style="background-image: url('images/slider-3.jpg'); " data-aos="fade" data-aos-delay="200">
           <div class="block-thumbnail-content">
-            <h2>Italic Mountains</h2>
-            <span class="post-meta">Design, Illustration</span>
+            <h2>Personalised Health Watch</h2>
+            
           </div>
         </a>
         <a href="#" class="block-thumbnail-1 one-third" style="background-image: url('images/slider-4.jpg'); " data-aos="fade" data-aos-delay="300">
           <div class="block-thumbnail-content">
-            <h2>Behind the word mountains</h2>
-            <span class="post-meta">Design, Illustration</span>
+            <h2>Tele-scope</h2>
+            
           </div>
         </a>
       </div>
     </div> <!-- .templateux-section -->
 
-    <div class="templateux-section bg-primary" id="templateux-counter-section">
-      <div class="container">
-        <div class="row">
-          <div class="col-md">
-            <div class="templateux-counter text-center">
-              <span class="templateux-number" data-number="99399">0</span>
-              <span class="templateux-label">Lines of Codes</span>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="templateux-counter text-center">
-              <span class="templateux-number" data-number="99">0</span>
-              <span class="templateux-label">Number of Projects</span>
-            </div>
-          </div>
-          <div class="col-md">
-            <div class="templateux-counter text-center">
-              <span class="templateux-number" data-number="124">0</span>
-              <span class="templateux-label">Number of Clients</span>
-            </div>
-          </div>    
-        </div>
-      </div>
-      
-      </div>
     </div> <!-- .templateux-section -->
 
     <div class="templateux-section">
@@ -307,86 +249,5 @@
       </div> <!-- .container -->
     </div> <!-- .templateux-section -->
     
-    <footer class="templateux-footer bg-light">
-      <div class="container">
-
-        <div class="row mb-5">
-          <div class="col-md-4 pr-md-5">
-            <div class="block-footer-widget">
-              <h3>About</h3>
-              <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-            </div>
-          </div>
-
-          <div class="col-md-8">
-            <div class="row">
-              <div class="col-md-3">
-                <div class="block-footer-widget">
-                  <h3>Learn More</h3>
-                  <ul class="list-unstyled">
-                    <li><a href="#">How it works?</a></li>
-                    <li><a href="#">Useful Tools</a></li>
-                    <li><a href="#">Pricing</a></li>
-                    <li><a href="#">Sitemap</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="block-footer-widget">
-                  <h3>Support</h3>
-                  <ul class="list-unstyled">
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Help Desk</a></li>
-                    <li><a href="#">Knowledgebase</a></li>
-                  </ul>
-                </div>
-              </div>
-              <div class="col-md-3">
-                <div class="block-footer-widget">
-                  <h3>About Us</h3>
-                  <ul class="list-unstyled">
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Careers</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Privacy Policy</a></li>
-                  </ul>
-                </div>
-              </div>
-
-              <div class="col-md-3">
-                <div class="block-footer-widget">
-                  <a href="#" class="btn btn-primary mb-3">Download for free</a>
-                  <p>Connect With Us</p>
-                  <ul class="list-unstyled block-social">
-                    <li><a href="#" class="p-1"><span class="icon-facebook-square"></span></a></li>
-                    <li><a href="#" class="p-1"><span class="icon-twitter"></span></a></li>
-                    <li><a href="#" class="p-1"><span class="icon-github"></span></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div> <!-- .row -->
-            
-          </div>
-        </div> <!-- .row -->
-
-        <div class="row pt-5 text-left">
-          <div class="col-md-12 text-left"><p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-            Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank" class="text-primary">Colorlib</a>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-          </p></div>
-        </div> <!-- .row -->
-
-      </div>
-    </footer> <!-- .templateux-footer -->
     
-
-   </div> <!-- .js-animsition -->
-
-  
-  <script src="/js/scripts-all.js"></script>
-  <script src="/js/main.js"></script>
-  
-  </body>
-</html>
+<% include partials/footer.ejs %>    
