@@ -3,16 +3,16 @@ var express             = require("express"),
     bodyParser          = require("body-parser"),
     username                                    ,
     mobile                                      ,
-    Doctor= [{name:"Afna",
+    Doctor= [{name:"Dr.Afna",
              pass:"hello123"},
-             {name:"Rizwan",
+             {name:"Dr.Aslam",
              pass:"hell1234"},
-             {name:"Prasanth",
+             {name:"Dr.Fasil",
              pass:"helllo124"},
-             {name:"Abhishek",
+             {name:"Dr.Zehra",
              pass:"helloo1234"},
-             {name:"Enrique",
-             pass:"12345678"},
+             {name:"Admin",
+             pass:"admin123"},
               ]                  ;
     // mongoose            = require("mongoose");
 
@@ -31,7 +31,7 @@ app.get("/",function(req,res){
     res.render("index",{username:null});
 });
 
-app.post("/login",function(req,res){
+app.post("/user",function(req,res){
     username=req.body.username;
     mobile=req.body.mobile;
     res.redirect("/user");
@@ -40,10 +40,10 @@ app.post("/login",function(req,res){
 app.get("/user",function(req,res){
     res.render("user",{username:username,doctor:Doctor});
 });
-app.get("/doctors",function(req,res){
-    res.render("doctor",{username:username});
+app.get("/doctor-signup",function(req,res){
+    res.render("doctor-signup",{username:username});
 });
-app.post("/doctor-login",function(req,res){
+app.post("/doctor-signup",function(req,res){
     var Doctorname=req.body.name;
     var DoctorPass=req.body.password;
     var newDoctor={name:Doctorname, pass:DoctorPass}
@@ -53,13 +53,18 @@ app.post("/doctor-login",function(req,res){
 app.get("/doctor-login",function(req,res){
     res.render("doctor-login",{username:null});
 });
-app.post("/doctor-dash",function(req,res){
+app.post("/doctor-login",function(req,res){
     var DoctorPass=req.body.doctorpass;
     var Doctorname=req.body.doctorname;
     res.redirect("/doctor-dash");
 });
 app.get("/doctor-dash",function(req,res){
     res.render("doctor-dash",{username:null,doctorname:Doctor.name});
+});
+app.get("/logout",function(req,res){
+    username:null;
+    doctorname:null;
+    res.redirect("/");
 });
 app.listen(3000,function(){
     console.log("It's on 3000");
