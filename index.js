@@ -32,11 +32,7 @@ app.use(function(req,res,next){
     next();
 });
 
-// var campgroundSchema = new mongoose.Schema({
-//     name:String,
-//     image:String,
-//     description:String
-// });
+
 
 app.get("/",function(req,res){
     res.render("index");
@@ -53,6 +49,7 @@ app.get("/doctor/signup",function(req,res){
     res.render("doctor-signup");
 });
 app.post("/doctor/signup",function(req,res){
+    var details={roomname:req.body.roomname, email : req.body.email};
     var Doctorname=new doctorUser({username: req.body.username}) ;
     doctorUser.register(Doctorname,req.body.password,function(err,user){
         if(err){
@@ -60,6 +57,9 @@ app.post("/doctor/signup",function(req,res){
             return res.render("doctor-signup");
         }
         passport.authenticate("local")(req,res,function(){
+            user.push(details);
+            user.save();
+            console.log(user);
             res.redirect("/doctor/dash");
         });
     });
@@ -69,7 +69,8 @@ app.get("/doctor/login",function(req,res){
 });
 app.post("/doctor/login",passport.authenticate("local", 
     {successRedirect:"/doctor/dash", 
-    failureRedirect:"/doctor/login"})
+    failureRedirect:"/doctor/login",
+    failureFlash: 'Invalid username or password.'})
 , function(req,res){
 });
 app.get("/doctor/dash",isLoggedIn,function(req,res){
