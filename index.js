@@ -8,7 +8,8 @@ var express             = require("express"),
     doctorUser              = require("./models/Doctor");
     
     
-    mongoose.connect("mongodb://localhost:27017/InstaDoc");
+    //mongoose.connect("mongodb://localhost:27017/InstaDoc");
+    mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
     
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
