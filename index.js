@@ -32,7 +32,7 @@ var isValidPassword = function(user, password){
     return bCrypt.compareSync(password, user.password);
   }
 
-passport.use('login',new LocalStrategy(
+passport.use("login",new LocalStrategy(
     {    passReqToCallback : true
     }, function(req, username, password, done) { 
     // check in mongo if a user with username exists or not
@@ -45,13 +45,15 @@ passport.use('login',new LocalStrategy(
         if (!user){
           console.log('User Not Found with username '+username);
           return done(null, false, 
-                req.flash('message', 'User Not found.'));                 
+                // req.flash('message', 'User Not found.')
+                );                 
         }
         // User exists but wrong password, log the error 
         if (!isValidPassword(user, password)){
           console.log('Invalid Password');
           return done(null, false, 
-              req.flash('message', 'Invalid Password'));
+            //   req.flash('message', 'Invalid Password')
+              );
         }
         // User and password both match, return user from 
         // done method which will be treated like success
@@ -61,7 +63,7 @@ passport.use('login',new LocalStrategy(
 
 //Passport sign up logic
 
-passport.use('signup', new LocalStrategy({
+passport.use("signup", new LocalStrategy({
     passReqToCallback : true
   },
   function(req, username, password, done) {
@@ -77,7 +79,8 @@ passport.use('signup', new LocalStrategy({
         if (user) {
           console.log('User already exists');
           return done(null, false, 
-             req.flash('message','User Already Exists'));
+            //  req.flash('message','User Already Exists')
+            );
         } else {
           // if there is no user with that email
           // create the user
@@ -86,7 +89,8 @@ passport.use('signup', new LocalStrategy({
           newUser.username = username;
           newUser.password = createHash(password);
           newUser.email = req.param('email');
-          newUser.roomname = req.param('roomname');
+          newUser.userid = req.param('userid');
+          newUser.mobile  = req.param('mobile');
 
           // save the user
           newUser.save(function(err) {
@@ -146,7 +150,7 @@ app.post("/doctor/signup",passport.authenticate('signup', {
 });
 app.post("/doctor/login",passport.authenticate("login", 
     {successRedirect:"/doctor/dash", 
-    failureRedirect:"/doctor/login",
+    failureRedirect:'/doctor/login',
     failureFlash: true})
 , function(req,res){
 });
