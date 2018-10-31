@@ -1,10 +1,11 @@
 var mongoose = require("mongoose");
 var passportLocalMongoose = require("passport-local-mongoose");
 var doctorSchema = new mongoose.Schema({
-    name:String,
+    username:String,
     password:String,
     email:String,
-    roomname:String,
+    userid:String,
+    mobile:Number,
     // username:s,
     // email:string,
 

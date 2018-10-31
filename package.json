@@ -9,7 +9,11 @@
   "author": "Evin Rizwan",
   "license": "ISC",
   "dependencies": {
+<<<<<<< HEAD
     "all": "0.0.0",
+=======
+    "bcrypt": "^3.0.2",
+>>>>>>> e3a1df109310332f2e57d4da142cca923514d6c6
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
