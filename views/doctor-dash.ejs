@@ -1,15 +1,22 @@
 <% include partials/header %>
 
-<div class = "jumbotron-fluid jum">
-    <div class="container-fluid cont">
-            <h4><%=currentUser.username %></h4>
-            <p><%=currentUser.mobile%></p>
-            <p><%=currentUser.userid%></p>
-            <p><%=currentUser.email%></p>
+<div class = "jumbotron-fluid dt-da">
+    <div class="container-fluid ">
+            
                    
-
+            <div class="border border-dark rounded ">
+                    <div class="bg-primary  text-left text-white d-block  p-3 border-bottom">
+                        <h2>PROFILE</h2>
+                    </div>
+                    <div class="p-3 bg-light text-dark profile">
+                            <p>Name: <%=currentUser.username %></p>
+                            <p>Mobile No.: <%=currentUser.mobile%></p>
+                            <p>Room Name: <%=currentUser.userid%></p>
+                            <p>Email: <%=currentUser.email%></p>
+                    </div>
+                </div>
     </div>
-</div>>
+</div>
     
     
 <% include partials/footer %>

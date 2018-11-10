@@ -66,10 +66,11 @@ passport.use("login",new LocalStrategy(
 passport.use("signup", new LocalStrategy({
     passReqToCallback : true
   },
-  function(req, username, password, done) {
+  function(req, username,password, done) {
     findOrCreateUser = function(){
       // find a user in Mongo with provided username
       doctorUser.findOne({'username':username},function(err, user) {
+         
         // In case of any error return
         if (err){
           console.log('Error in SignUp: '+err);
@@ -77,11 +78,19 @@ passport.use("signup", new LocalStrategy({
         }
         // already exists
         if (user) {
-          console.log('User already exists');
-          return done(null, false, 
-            //  req.flash('message','User Already Exists')
-            );
-        } else {
+            console.log('User already exists');
+            return done(null, false, 
+                //  req.flash('message','User Already Exists')
+                );
+        }
+        // else if(user.userid===req.param('userid')){ 
+        //     console.log("Room name is the same");
+
+        //     return done(null, false, 
+        //         //  req.flash('message','User Already Exists')
+        //         );
+        // }
+        else {
           // if there is no user with that email
           // create the user
           var newUser = new doctorUser();
@@ -117,6 +126,8 @@ var createHash = function(password){
    }
 
 
+   var uname,mobile; 
+
 app.use(function(req,res,next){
     res.locals.currentUser = req.user;
     next();
@@ -129,12 +140,27 @@ app.get("/",function(req,res){
 });
 
 app.post("/user",function(req,res){
-    res.redirect("/user");
+    uname=req.body.name;
+    mobile=req.body.mobile;
+    res.redirect("/user/profile");
 });
-
-app.get("/user",function(req,res){
+app.get("/user/profile",isUserLogged, function(req,res){
+    console.log("user page");
     res.render("user");
 });
+
+app.get("/:id",isUserLogged,function(req,res){
+    doctorUser.findOne({userid:req.params.id},function(err,doctor){
+        if(err){
+            console.log(err);
+        }
+        else{
+            console.log("waiting room");
+            res.render("wait",{doctordetail:doctor});
+        }
+    })
+});
+
 app.get("/doctor/signup",function(req,res){
     res.render("doctor-signup");
 });
@@ -151,21 +177,25 @@ app.post("/doctor/signup",passport.authenticate('signup', {
 app.post("/doctor/login",passport.authenticate("login", 
     {successRedirect:"/doctor/dash", 
     failureRedirect:'/doctor/login',
-    failureFlash: true})
-, function(req,res){
+    failureFlash: true}),
+     function(req,res){
 });
 app.get("/doctor/dash",isLoggedIn,function(req,res){
     doctorUser.findById(req.params.id,function(err,doctor){
         if(err){
             console.log(err);
         } else {
+            console.log("DASHBOARD");
             res.render("doctor-dash",{currentUser:req.user});
         }
 
     });
 });
-app.get("/logout",function(req,res){
+app.get("/logout",isLoggedIn,function(req,res){
+    console.log("LOGGING OUT");
     req.logout();
+    req.session.destroy();
+    console.log(req.user);
     res.redirect("/");
 });
 
@@ -174,6 +204,16 @@ function isLoggedIn(req,res,next){
         return next();
     }
     res.redirect("/doctor/login");
+}
+
+function isUserLogged(req,res,next){
+    if(uname!=null && mobile!=null){
+        console.log("user middleware");
+        return next();
+    }
+    else{
+        res.redirect("/");
+    }
 }
 app.listen(3000,function(){
     console.log("It's on 3000");
