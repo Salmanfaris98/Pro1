@@ -2,6 +2,7 @@ var express             = require("express"),
     app                 = express(),
     bCrypt              = require('bcrypt'),
     bodyParser          = require("body-parser"),
+    flash               = require("connect-flash"),
     mongoose            = require("mongoose"),
     passport            = require("passport"),
     LocalStrategy       = require("passport-local"),
@@ -13,9 +14,6 @@ var express             = require("express"),
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
-
-
-
 //passport configuration
 app.use(require("express-session")({
     secret:"This is a secret so Shush",
@@ -26,7 +24,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 passport.serializeUser(doctorUser.serializeUser());
 passport.deserializeUser(doctorUser.deserializeUser());
-
+app.use(flash()); 
+app.use(function(req,res,next){
+    res.locals.currentUser  = req.user;
+    res.locals.error        = req.flash("error");
+    res.locals.success      = req.flash("success");
+    next();
+});
 // passport login logic
 var isValidPassword = function(user, password){
     return bCrypt.compareSync(password, user.password);
@@ -46,18 +50,19 @@ passport.use("login",new LocalStrategy(
         if (!user){
           console.log('User Not Found with username '+username);
           return done(null, false, 
-                // req.flash('message', 'User Not found.')
+                req.flash('error', 'User Not found.')
                 );                 
         }
         // User exists but wrong password, log the error 
         if (!isValidPassword(user, password)){
           console.log('Invalid Password');
           return done(null, false, 
-            //   req.flash('message', 'Invalid Password')
+              req.flash('error', 'Invalid Password')
               );
         }
         // User and password both match, return user from 
         // done method which will be treated like success
+        req.flash('success','Welcome '+user.username);
         return done(null, user);
       }
     );}));
@@ -82,7 +87,7 @@ passport.use("signup", new LocalStrategy({
         if (user) {
             console.log('User already exists');
             return done(null, false, 
-                //  req.flash('message','User Already Exists')
+                 req.flash('error','User Already Exists')
                 );
         }
         
@@ -124,11 +129,6 @@ var createHash = function(password){
 
    var uname,mobile; 
 
-app.use(function(req,res,next){
-    res.locals.currentUser = req.user;
-    next();
-});
-
 
 
 app.get("/",function(req,res){
@@ -146,6 +146,7 @@ app.get("/user/profile",isUserLogged, function(req,res){
 });
 
 app.get("/:id",isUserLogged,function(req,res){
+
     doctorUser.findOne({userid:req.params.id},function(err,doctor){
         if(err){
             console.log(err);
@@ -187,18 +188,13 @@ app.get("/doctor/dash",isLoggedIn,function(req,res){
 
     });
 });
-app.get("/logout",isLoggedIn,function(req,res){
-    console.log("LOGGING OUT");
-    req.logout();
-    req.session.destroy();
-    console.log(req.user);
-    res.redirect("/");
-});
+
 
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }
+    req.flash("error","Doctor Please Login First")
     res.redirect("/doctor/login");
 }
 
@@ -208,9 +204,17 @@ function isUserLogged(req,res,next){
         return next();
     }
     else{
+        req.flash("error","Please Create a user acount first")
         res.redirect("/");
     }
 }
+
+app.get("/doctor/logout",function(req,res){
+    req.logout();
+    req.flash('success','Bye..');
+    // req.session.destroy();
+    res.redirect("/");
+});
 app.listen(3000,function(){
     console.log("It's on 3000");
 });
