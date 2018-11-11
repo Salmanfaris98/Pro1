@@ -6,6 +6,7 @@ var doctorSchema = new mongoose.Schema({
     email:String,
     userid:String,
     mobile:Number,
+    dateOfJoin:{type:Date , default:Date.now}
     // username:s,
     // email:string,
 

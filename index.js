@@ -33,10 +33,11 @@ var isValidPassword = function(user, password){
   }
 
 passport.use("login",new LocalStrategy(
-    {    passReqToCallback : true
+    {    
+        passReqToCallback : true
     }, function(req, username, password, done) { 
     // check in mongo if a user with username exists or not
-    doctorUser.findOne({ 'username' :  username }, 
+    doctorUser.findOne({$or:[{ 'username' :  username},{'userid':username }]}, 
       function(err, user) {
         // In case of any error, return using the done method
         if (err)
@@ -64,12 +65,13 @@ passport.use("login",new LocalStrategy(
 //Passport sign up logic
 
 passport.use("signup", new LocalStrategy({
+    usernameField:'userid',
     passReqToCallback : true
   },
-  function(req, username,password, done) {
+  function(req, userid,password, done) {
     findOrCreateUser = function(){
       // find a user in Mongo with provided username
-      doctorUser.findOne({'username':username},function(err, user) {
+      doctorUser.findOne({'userid':userid},function(err, user) {
          
         // In case of any error return
         if (err){
@@ -83,23 +85,17 @@ passport.use("signup", new LocalStrategy({
                 //  req.flash('message','User Already Exists')
                 );
         }
-        // else if(user.userid===req.param('userid')){ 
-        //     console.log("Room name is the same");
-
-        //     return done(null, false, 
-        //         //  req.flash('message','User Already Exists')
-        //         );
-        // }
+        
         else {
           // if there is no user with that email
           // create the user
           var newUser = new doctorUser();
           // set the user's local credentials
-          newUser.username = username;
-          newUser.password = createHash(password);
-          newUser.email = req.param('email');
-          newUser.userid = req.param('userid');
-          newUser.mobile  = req.param('mobile');
+          newUser.username  =    req.param('username');
+          newUser.password  =    createHash(password);
+          newUser.email     =       req.param('email');
+          newUser.userid    =      userid;
+          newUser.mobile    =     req.param('mobile');
 
           // save the user
           newUser.save(function(err) {
