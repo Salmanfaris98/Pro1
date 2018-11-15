@@ -142,24 +142,31 @@ app.post("/user",function(req,res){
 });
 app.get("/user/profile",isUserLogged, function(req,res){
     console.log("user page");
-    res.render("user");
+    res.render("./User/user");
 });
 
 app.get("/:id",isUserLogged,function(req,res){
 
     doctorUser.findOne({userid:req.params.id},function(err,doctor){
         if(err){
+            
+            console.log('error in wait');
             console.log(err);
+            res.redirect("/");
+        }
+        else if(doctor==null){
+            req.flash("error","No such doctor exist");
+            res.redirect("./User/wait");
         }
         else{
             console.log("waiting room");
-            res.render("wait",{doctordetail:doctor});
+            res.render("./User/wait",{doctordetail:doctor});
         }
     })
 });
 
 app.get("/doctor/signup",function(req,res){
-    res.render("doctor-signup");
+    res.render("./Doctor/Signup");
 });
 app.post("/doctor/signup",passport.authenticate('signup', {
     successRedirect: "/doctor/dash",
@@ -169,7 +176,7 @@ app.post("/doctor/signup",passport.authenticate('signup', {
   
   
   app.get("/doctor/login",function(req,res){
-    res.render("doctor-login",{username:null});
+    res.render("./Doctor/Login",{username:null});
 });
 app.post("/doctor/login",passport.authenticate("login", 
     {successRedirect:"/doctor/dash", 
@@ -183,7 +190,7 @@ app.get("/doctor/dash",isLoggedIn,function(req,res){
             console.log(err);
         } else {
             console.log("DASHBOARD");
-            res.render("doctor-dash",{currentUser:req.user});
+            res.render("./Doctor/Dashboard",{currentUser:req.user});
         }
 
     });
