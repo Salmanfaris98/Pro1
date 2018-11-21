@@ -1,0 +1,85 @@
+<% include ../partials/doctorHeader %>
+<div id="wrapper">
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="/">
+                   InstaDoc
+                </a>
+            </li>
+            <li>
+                <a href="/doctor/dashboard">Dashboard</a>
+            </li>
+            <li  class="active-li">
+                <a href="/doctor/<%=currentUser._id%>/Profile">Profile</a>
+            </li>
+            <li>
+                <a href="#">Waiting Room</a>
+            </li>
+            <li>
+                <a href="#">Help</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+            <li>
+                <a href="#">Delete Account</a>
+            </li>
+            <li>
+                <a href="/doctor/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        <div class = "jumbotron-fluid pr-d">
+                <div class="container-fluid ">
+                        
+                               
+                        <div class="border border-dark rounded ">
+                                <div class="bg-primary d-flex text-white d-block   border-bottom">
+                                    <div class="text-left p-2">
+                                        <h2>EDIT <%=currentUser.username %></h2>
+                                    </div>
+                                </div>
+                                <div class="p-3 bg-light text-dark profile">
+                                    <form action="/doctor/<%=currentUser._id%>/profile?_method=PUT" method="post">
+                                        
+                                        <div class="form-group">
+                                            <input type="text" class="form-control" name="newDocor[username]" value="<%=currentUser.username%>" required="required">
+                                        </div>   
+                                        	
+                                        <div class="form-group">
+                                                <input type="email" class="form-control" name="newDoctor[email]" value="<%=currentUser.email%>" required="required">
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="number" class="form-control" name="newDoctor[mobile]" value="<%=currentUser.mobile%>" required="required">
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                        </div>
+                            
+                                   </form>
+                                </div>
+                            </div>
+                </div>
+            </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+
+<% include ../partials/doctorFooter %>

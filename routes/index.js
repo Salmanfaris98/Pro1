@@ -87,6 +87,7 @@ passport.use("signup", new LocalStrategy({
               throw err;  
             }
             console.log('User Registration succesful');    
+            req.flash('success','Registration Successful Welcome')
             return done(null, newUser);
           });
         }

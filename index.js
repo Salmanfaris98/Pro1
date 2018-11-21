@@ -6,6 +6,7 @@ var express             = require("express"),
     mongoose            = require("mongoose"),
     passport            = require("passport"),
     LocalStrategy       = require("passport-local"),
+    methodOverride      = require("method-override")
     doctorUser          = require("./models/Doctor"),
     doctorRoute         = require("./routes/doctor"),
     indexAuthRoute      = require("./routes/index"),
@@ -18,7 +19,7 @@ app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/routes'));
-
+app.use(methodOverride("_method"));
 app.use(require("express-session")({
     secret:"This is a secret so Shush",
     resave:false,
