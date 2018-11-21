@@ -10,10 +10,10 @@
                    InstaDoc
                 </a>
             </li>
-            <li class="active-li">
+            <li>
                 <a href="#">Dashbaord</a>
             </li>
-            <li>
+            <li  class="active-li">
                 <a href="/Doctor/Profile">Profile</a>
             </li>
             <li>
@@ -39,7 +39,24 @@
             <span class="hamb-middle"></span>
             <span class="hamb-bottom"></span>
         </button>
-        
+        <div class = "jumbotron-fluid pr-d">
+                <div class="container-fluid ">
+                        
+                               
+                        <div class="border border-dark rounded ">
+                                <div class="bg-primary  text-left text-white d-block  p-3 border-bottom">
+                                    <h2>PROFILE</h2>
+                                </div>
+                                <div class="p-3 bg-light text-dark profile">
+                                        <p>Name: <%=currentUser.username %></p>
+                                        <p>Mobile No.: <%=currentUser.mobile%></p>
+                                        <p>Room Name: <%=currentUser.userid%></p>
+                                        <p>Email: <%=currentUser.email%></p>
+                                        <p>Join Date: <%=currentUser.dateOfJoin.toDateString()%></p>
+                                </div>
+                            </div>
+                </div>
+            </div>
     </div>
     <!-- /#page-content-wrapper -->
 

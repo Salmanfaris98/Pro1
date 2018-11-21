@@ -5,9 +5,9 @@ var express             = require("express"),
    
  var uname,mobile; 
 
-router.post("/user",function(req,res){
-    uname=req.body.name;
-    mobile=req.body.mobile;
+router.post("/user/login",function(req,res){
+    uname=req.body.username;
+    mobile=req.body.mnumber;
     res.redirect("/user/profile");
 });
 router.get("/user/profile",isUserLogged, function(req,res){
@@ -15,6 +15,10 @@ router.get("/user/profile",isUserLogged, function(req,res){
     res.render("./User/user");
 });
 
+router.get("/user/login",function(req,res){
+    console.log("User login page");
+    res.render("./User/Login");
+})
 router.get("/:id",isUserLogged,function(req,res){
 
     doctorUser.findOne({userid:req.params.id},function(err,doctor){
@@ -22,11 +26,13 @@ router.get("/:id",isUserLogged,function(req,res){
             
             console.log('error in wait');
             console.log(err);
+            req.flash(err);
+
             res.redirect("/");
         }
         else if(doctor==null){
             req.flash("error","No such doctor exist");
-            res.redirect("./User/wait");
+            res.redirect("/user/login");
         }
         else{
             console.log("waiting room");
@@ -41,7 +47,7 @@ function isUserLogged(req,res,next){
     }
     else{
         req.flash("error","Please Create a user acount first")
-        res.redirect("/");
+        res.redirect("/user/login");
     }
 }
 

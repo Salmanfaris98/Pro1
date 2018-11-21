@@ -9,7 +9,7 @@ router.get("/doctor/signup",function(req,res){
     res.render("./Doctor/Signup");
 });
 router.post("/doctor/signup",passport.authenticate('signup', {
-    successRedirect: "/doctor/dash",
+    successRedirect: "/doctor/dashboard",
     failureRedirect:"/doctor/signup",
     failureFlash : true 
   }));
@@ -19,12 +19,12 @@ router.post("/doctor/signup",passport.authenticate('signup', {
     res.render("./Doctor/Login",{username:null});
 });
 router.post("/doctor/login",passport.authenticate("login", 
-    {successRedirect:"/doctor/dash", 
+    {successRedirect:"/doctor/dashboard", 
     failureRedirect:'/doctor/login',
     failureFlash: true}),
      function(req,res){
 });
-router.get("/doctor/dash",middleware.isLoggedIn,function(req,res){
+router.get("/doctor/dashboard",middleware.isLoggedIn,function(req,res){
     doctorUser.findById(req.params.id,function(err,doctor){
         if(err){
             console.log(err);
@@ -35,7 +35,17 @@ router.get("/doctor/dash",middleware.isLoggedIn,function(req,res){
 
     });
 });
+router.get("/doctor/profile",middleware.isLoggedIn,function(req,res){
+    doctorUser.findById(req.params.id,function(err,doctor){
+        if(err){
+            console.log(err);
+        } else {
+            console.log("Profile");
+            res.render("./Doctor/Profile",{currentUser:req.user});
+        }
 
+    });
+})
 
 router.get("/doctor/logout",function(req,res){
     req.logout();
