@@ -28,6 +28,8 @@ router.get("/doctor/dashboard",middleware.isLoggedIn,function(req,res){
     doctorUser.findById(req.params.id,function(err,doctor){
         if(err){
             console.log(err);
+            req.flash('error','Error whil loading dashboard');
+            res.redirect("/doctor/login");
         } else {
             console.log("DASHBOARD");
             res.render("./Doctor/Dashboard",{currentUser:req.user});
@@ -39,6 +41,7 @@ router.get("/doctor/:id/profile",middleware.isLoggedIn,function(req,res){
     doctorUser.findById(req.params.id,function(err,doctor){
         if(err){
             console.log(err);
+            req.flash('error','Error whil loading profile');
             res.redirect("/doctor/dashboard");
         } else {
             console.log("Profile");
@@ -52,7 +55,8 @@ router.get("/doctor/:id/edit",middleware.isLoggedIn,function(req,res){
     doctorUser.findById(req.params.id,function(err,doctor){
         if(err){
             console.log(err);
-            res.redirect("/doctor/profile");
+            req.flash('error','Error');
+            res.redirect("/doctor/"+req.params.id+"/profile");
         }
         else{
             console.log("Edit page");
@@ -66,11 +70,12 @@ router.put("/doctor/:id/profile", middleware.isLoggedIn,function(req,res){
         doctorUser.findByIdAndUpdate(req.params.id,req.body.newDoctor,function(err,updatedDoctor){
             if(err){
                 console.log(err);
+                req.flash('error','Error while updating profile');
                 res.redirect("/doctor/"+req.params.id+"/edit");
             }
             else{
                 req.flash('success','Updated successfully');
-                res.redirect("/doctor/profile");
+                res.redirect("/doctor/"+req.params.id+"/profile");
             }
         });
         
@@ -80,7 +85,8 @@ router.put("/doctor/:id/profile", middleware.isLoggedIn,function(req,res){
 router.delete("/doctor/:id",middleware.isLoggedIn,function(req,res){
     doctorUser.findByIdAndDelete(req.params.id,function(err){
         if(err){
-            res.redirect("/doctor/profile");
+            req.flash('error','Error while deleting');
+            res.redirect("/doctor/"+req.params.id+"/profile");
         }
         else{
             req.flash('success','Account deleted succeessfully GoodBye');

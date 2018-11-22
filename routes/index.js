@@ -59,6 +59,7 @@ passport.use("signup", new LocalStrategy({
         // In case of any error return
         if (err){
           console.log('Error in SignUp: '+err);
+          req.flash('error','Error while signup');
           return done(err);
         }
         // already exists
@@ -84,6 +85,7 @@ passport.use("signup", new LocalStrategy({
           newUser.save(function(err) {
             if (err){
               console.log('Error in Saving user: '+err);  
+              req.flash('error','Error in creating a user');
               throw err;  
             }
             console.log('User Registration succesful');    
