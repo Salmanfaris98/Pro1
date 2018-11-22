@@ -1,0 +1,52 @@
+<% include ../partials/doctorHeader %>
+<div id="wrapper">
+    <div class="overlay"></div>
+
+    <!-- Sidebar -->
+    <nav class="navbar navbar-dark fixed-top" id="sidebar-wrapper" role="navigation">
+        <ul class="nav sidebar-nav">
+            <li class="sidebar-brand">
+                <a href="/">
+                   InstaDoc
+                </a>
+            </li>
+            <li class="active-li">
+                <a href="/doctor/dashboard">Dashboard</a>
+            </li>
+            <li>
+                <a href="/doctor/<%=currentUser._id%>/Profile">Profile</a>
+            </li>
+            <li>
+                <a href="#">Waiting Room</a>
+            </li>
+            <li>
+                <a href="#">Help</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+            <li>
+                <a href="#">Delete Account</a>
+            </li>
+            <li>
+                <a href="/doctor/logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+    <!-- /#sidebar-wrapper -->
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+        <button type="button" class="hamburger is-closed" data-toggle="offcanvas">
+            <span class="hamb-top"></span>
+            <span class="hamb-middle"></span>
+            <span class="hamb-bottom"></span>
+        </button>
+        
+    </div>
+    <!-- /#page-content-wrapper -->
+
+</div>
+<!-- /#wrapper -->
+
+<% include ../partials/doctorFooter %>
