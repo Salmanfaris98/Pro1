@@ -70,7 +70,7 @@ router.put("/doctor/:id/profile", middleware.isLoggedIn,function(req,res){
             }
             else{
                 req.flash('success','Updated successfully');
-                res.redirect("/doctor/profile");
+                res.redirect("/doctor/"+req.params.id+"/profile");
             }
         });
         

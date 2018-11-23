@@ -11,9 +11,9 @@ var express             = require("express"),
     doctorRoute         = require("./routes/doctor"),
     indexAuthRoute      = require("./routes/index"),
     userRoute           = require("./routes/user");
+    const PORT = process.env.PORT || 5000    
     
-    
-    mongoose.connect("mongodb://localhost:27017/InstaDoc");
+    mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
     
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -41,8 +41,6 @@ app.use(indexAuthRoute);
 app.use(doctorRoute);
 app.use(userRoute);
 
-app.listen(3000,function(){
-    console.log("It's on 3000");
-});
+app.listen(PORT);
 
 

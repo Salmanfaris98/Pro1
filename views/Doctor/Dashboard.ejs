@@ -26,9 +26,6 @@
                 <a href="#">Contact</a>
             </li>
             <li>
-                <a href="#">Delete Account</a>
-            </li>
-            <li>
                 <a href="/doctor/logout">Logout</a>
             </li>
         </ul>
@@ -44,6 +41,17 @@
         </button>
         
     </div>
+    <div class="container">
+        <header class="jumbotron">
+            <div class="container">
+                <h1>Welocome <%=currentUser.username %></h1>
+                <p>Your patients are waiting</p>
+                <p>
+                    <a type="button" href="https://hubl.in/<%=currentUser.userid%>" class="btn btn-outline-dark">Start chat</a>
+
+                </p>
+            </div>
+        </header>
     <!-- /#page-content-wrapper -->
 
 </div>
