@@ -26,7 +26,7 @@ router.get("/:id",isUserLogged,function(req,res){
             
             console.log('error in wait');
             console.log(err);
-            req.flash(err);
+            req.flash('error','Error while loading page');
 
             res.redirect("/");
         }
