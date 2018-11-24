@@ -43,6 +43,7 @@ router.get("/:id",isUserLogged,function(req,res){
 function isUserLogged(req,res,next){
     if(uname!=null && mobile!=null){
         console.log("user middleware");
+        res.redirect("/user/login");
         return next();
     }
     else{
