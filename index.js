@@ -41,6 +41,21 @@ app.use(indexAuthRoute);
 app.use(doctorRoute);
 app.use(userRoute);
 
-app.listen(PORT);
+server=app.listen(PORT);
+
+const io = require("socket.io")(server);
+var usercount=null;
+
+io.on('connection',(socket)=>{
+    
+    console.log("user is connected");
+    usercount++;
+    
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+        usercount--;
+    });
+    console.log(usercount);
+});
 
 

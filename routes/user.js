@@ -8,7 +8,6 @@ var express             = require("express"),
 // post(:id-->/id (doctor,user,mobile)) 
 router.get("/:id",isDoctorCheck,function(req,res){
     console.log("Login form");
-    console.log(req.session.doctor);
    res.render("./User/Login",{doctorDetail:req.session.doctor});
  
 });
@@ -25,7 +24,6 @@ router.post("/:id",function(req,res){
         else{
             console.log("waiting room");
             req.session.doctor = doctor;
-            console.log(req.session.doctor);
             res.render("./User/wait",{doctordetail:req.session.doctor,username:req.session.username,mobile:req.session.mnumber});
         }
     });
@@ -46,7 +44,6 @@ function isDoctorCheck(req,res,next){
         }
         else{
             console.log("Doctor check middleware");
-            console.log(doctor);
             req.session.doctor = doctor;
             return next();
         }

@@ -6,6 +6,7 @@
         <div class="border border-dark rounded ">
             <div class="bg-primary  text-left text-white d-block p-1 border-bottom">
                     <h4>Hello <%= username %></h4>
+                    <h3>You have visited <span id="roomname"><%=doctordetail.userid%></span></h3>
                 <h3>Doctor Name: Dr.<%=doctordetail.username %></h3>
             </div>
             <div class="p-3 bg-light">
@@ -16,5 +17,8 @@
         </div>
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/js/chat.js"></script>
 
 <% include ../partials/footer.ejs %>
