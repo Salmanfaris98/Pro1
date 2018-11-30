@@ -13,7 +13,8 @@ var express             = require("express"),
     userRoute           = require("./routes/user");
     const PORT = process.env.PORT || 5000    
     
-    mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
+    //mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
+    mongoose.connect("mongodb://localhost:27017/InstaDoc");
     
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -44,18 +45,41 @@ app.use(userRoute);
 server=app.listen(PORT);
 
 const io = require("socket.io")(server);
-var usercount=null;
+var usercount       =[],
+    userName        =[],
+    userMobile      =[],
+    doctorcount     =[];
 
-io.on('connection',(socket)=>{
+   
+    io.of('/').on("connection",function(socket){
+        socket.on("join", function(roomid,username,mobile){
+            socket.join(roomid);
+            userName.push(username);
+            userMobile.push(mobile);
+            usercount.push(socket);
+            console.log('User count  %s',usercount.length);
+        socket.on('disconnect',function(data){
+            usercount.splice(usercount.indexOf(socket),1);
+            console.log('User count   %s',usercount.length);
     
-    console.log("user is connected");
-    usercount++;
+        });
     
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
-        usercount--;
+        });
+        
     });
-    console.log(usercount);
-});
-
+    io.of('/doctor/dashboard').on("connection",function(socket){
+        doctorcount.push(socket);
+        console.log('Doctor count  %s',doctorcount.length);
+    
+        console.log(userName);
+        console.log(userMobile);
+        
+        io.sockets.emit('connected user',{user:userName});
+        socket.on('disconnect',function(data){
+            doctorcount.splice(doctorcount.indexOf(socket),1);
+            console.log('Doctor count   %s',doctorcount.length);
+    
+        });
+        
+    });
 

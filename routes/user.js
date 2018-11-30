@@ -24,7 +24,7 @@ router.post("/:id",function(req,res){
         else{
             console.log("waiting room");
             req.session.doctor = doctor;
-            res.render("./User/wait",{doctordetail:req.session.doctor,username:req.session.username,mobile:req.session.mnumber});
+            res.render("./User/wait",{doctordetail:req.session.doctor,username:req.session.username,mobile:req.session.mobile});
         }
     });
 
