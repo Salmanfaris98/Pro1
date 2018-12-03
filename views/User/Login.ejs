@@ -6,18 +6,18 @@
         <div class="modal-header">				
             <h4 class="modal-title">User Login</h4>
         </div>
-        <div class="modal-body">
-            <form action="/<%= doctorDetail.userid %>" method="post">
+        <div class="modal-body" >
+            <form id="userLog" action="/<%= doctorDetail.userid %>" method="post">
                 <div class="form-group">
                     <i class="fa fa-user"></i>
-                    <input type="text" class="form-control" placeholder="Username" name="username" required="required">
+                    <input type="text" id="username" class="form-control" placeholder="Username" name="username" required="required">
                 </div>
                 <div class="form-group">
                     <i class="fas fa-mobile"></i>
-                    <input type="number" class="form-control" placeholder="Mobile Number" name="mnumber" required="required">					
+                    <input type="number" id="mobile" class="form-control" placeholder="Mobile Number" name="mnumber" required="required">					
                 </div>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-primary btn-block btn-lg" value="Login">
+                    <input type="submit"  class="btn btn-primary btn-block btn-lg" value="Login">
                 </div>
                 <div class="hint-text">Don't have an account? Don't Worry you don't need one just login</div>
 

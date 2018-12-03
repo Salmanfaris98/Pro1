@@ -7,7 +7,7 @@ var express             = require("express"),
 // get(id-->findbyid(middleware)-->loginpage)
 // post(:id-->/id (doctor,user,mobile)) 
 router.get("/:id",isDoctorCheck,function(req,res){
-    console.log("Login form");
+    
    res.render("./User/Login",{doctorDetail:req.session.doctor});
  
 });

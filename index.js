@@ -46,40 +46,80 @@ server=app.listen(PORT);
 
 const io = require("socket.io")(server);
 var usercount       =[],
-    userName        =[],
-    userMobile      =[],
-    doctorcount     =[];
+    // userDetail      =[{roomname[{
+    //                     username,
+    //                     mobile    }]}],
+    username        =[],
+    usermobile      =[],
+    roomname        =[],
+    connections     =[],
+    doctor          =[];
 
    
-    io.of('/').on("connection",function(socket){
-        socket.on("join", function(roomid,username,mobile){
-            socket.join(roomid);
-            userName.push(username);
-            userMobile.push(mobile);
-            usercount.push(socket);
-            console.log('User count  %s',usercount.length);
-        socket.on('disconnect',function(data){
-            usercount.splice(usercount.indexOf(socket),1);
-            console.log('User count   %s',usercount.length);
+    io.sockets.on("connection",function(socket){
+        // socket.on("join", function(roomid,username,mobile){
+        //     socket.join(roomid);
+        //     userName.push(username);
+        //     userMobile.push(mobile);
+        //     usercount.push(socket);
+        //     console.log('User count  %s',usercount.length);
+        // socket.on('disconnect',function(data){
+        //     usercount.splice(usercount.indexOf(socket),1);
+        //     console.log('User count   %s',usercount.length);
     
-        });
+        // });
     
-        });
-        
-    });
-    io.of('/doctor/dashboard').on("connection",function(socket){
-        doctorcount.push(socket);
-        console.log('Doctor count  %s',doctorcount.length);
-    
-        console.log(userName);
-        console.log(userMobile);
-        
-        io.sockets.emit('connected user',{user:userName});
-        socket.on('disconnect',function(data){
-            doctorcount.splice(doctorcount.indexOf(socket),1);
-            console.log('Doctor count   %s',doctorcount.length);
-    
-        });
-        
-    });
+        // });
+        connections.push(socket);
+        console.log('connected: %s sockets connected', connections.length);
+        socket.on('new userLogged', function(room,user,mobile){
+            // console.log(room);
+            console.log("user connected");
+            // console.log(mobile);
+            // console.log("new user");
+            socket.username = user;
+            socket.usermobile = mobile;
+            socket.room = room;
 
+            roomname.push(socket.room);
+            username.push(socket.username);
+            usermobile.push(socket.usermobile);
+            // updateUsernames()
+            updateUsernames()
+
+          });
+
+          socket.on('new doctorLogged',function(data){   
+            console.log("Doctor connected");
+              socket.doctorName = data;
+              doctor.push(socket.doctorName);
+            updateUsernames()
+
+           
+          });
+
+          socket.on('disconnect',function(data){
+              console.log(data);
+                roomname.splice(roomname.indexOf(socket.roomname), 1);
+                username.splice(username.indexOf(socket.username), 1);
+                usermobile.splice(usermobile.indexOf(socket.usermobile), 1);
+            
+                    doctor.splice(doctor.indexOf(socket.doctorName),1);
+     
+                console.log(doctor);
+                connections.splice(connections.indexOf(socket), 1);
+                console.log("Disconnected: %s sockets Disconnected", connections.length)
+ 
+          });
+          socket.on('send message', function(message,user){
+            console.log(user)
+            io.sockets.emit('new message', {msg: message, user:user});
+          });
+        
+          function updateUsernames(){
+            
+            io.sockets.emit('get users', username);
+            
+          }
+    });
+ 

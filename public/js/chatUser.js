@@ -1,20 +1,33 @@
 $(function(){
-    var roomname     = $("#roomname").text(),
-        username     = $("#Username").text(),
-        mobile       = $("#mob").text(),
-        userDetail   = $('#userdetail').text;     
+    var $roomname     = $("#roomname").text(),
+        $username     = $("#Username").text(),
+        $mobile       = $("#mob").text(),
+        $messageForm = $('#messageForm'),
+        $message = $('#message'),
+        $chat = $('#chat');
     //     userSend     = $("#userSend"),
     //     userMessage  = $("#userMessage"),
        // var roomID = window.location.pathname.splitOnLast("/")[1]; //Should ideally be got from req.params.roomid
         
 
-    var user = io.connect('http://localhost:5000/');
-    user.emit("join",roomname,username,mobile);
-    //user.emit("newUser",{username});
-    user.emit("message","User from userapge");
-    user.on('connected user',function(data){
-        console.log(data);
-        userDetail.append('<li>data</li>')
-    });
+       var socket      = io.connect();
+       $(document).ready(function() {
+        
+        socket.emit('new userLogged',$roomname,$username,$mobile);
+       });
+   
+       
+       $messageForm.submit(function(e){
+        e.preventDefault();
+        console.log("Submitted.")
+        //emit message data
+        socket.emit('send message', $message.val(),$username);
+        //clear message div once emitted
+        $message.val('');
+      })
 
+      socket.on('new message', function(data){
+        $chat.append(' <div class="well"> <strong>'+data.user+": "+'</strong>' + data.msg + ' </div> ')
+      });
+    
 })

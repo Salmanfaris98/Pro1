@@ -1,9 +1,42 @@
 $(function(){
 
-    var doctor  = io.connect('http://localhost:5000/doctor/dashboard'),
-        Send    = $("#doctorSend"),
-        Message = $("#doctorMessage"),
-        name    = $("#doctorName");
+    var socket  = io.connect(),
+        // Send    = $("#doctorSend"),
+        // Message = $("#doctorMessage"),
+        $doctorName    = $("#doctorName").text(),
+         $messageForm = $('#messageForm'),
+         $message = $('#message'),
+         $chat = $('#chat'),
+        $users   = $('#users');     
+    
 
-       
-})
+        $(document).ready(function() {
+        
+            socket.emit('new doctorLogged',$doctorName);
+           });
+        
+           socket.on('get users', function(username){
+            var html = '';
+               
+            console.log("username");
+            for(i=0; i<username.length; i++){
+              html += '<li class="list-group-item"> Name:'+username[i]+'</li>' 
+              
+            }
+            $users.html(html);
+          });
+
+          $messageForm.submit(function(e){
+            e.preventDefault();
+            console.log("Submitted.")
+            //emit message data
+            
+            socket.emit('send message', $message.val(),$doctorName);
+            //clear message div once emitted
+            $message.val('');
+          })
+
+          socket.on('new message', function(data){
+            $chat.append(' <div class="well"> <strong>'+data.user+": "+'</strong>' + data.msg + ' </div> ')
+          });
+});
