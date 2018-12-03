@@ -46,12 +46,13 @@ server=app.listen(PORT);
 
 const io = require("socket.io")(server);
 var usercount       =[],
-    // userDetail      =[{roomname[{
-    //                     username,
-    //                     mobile    }]}],
-    username        =[],
-    usermobile      =[],
-    roomname        =[],
+    userDetail      =[{roomname,
+        [{ username,
+        mobile}]
+                      }],
+    // username        =[],
+    // usermobile      =[],
+    // roomname        =[],
     connections     =[],
     doctor          =[];
 
@@ -81,33 +82,35 @@ var usercount       =[],
             socket.usermobile = mobile;
             socket.room = room;
 
-            roomname.push(socket.room);
-            username.push(socket.username);
-            usermobile.push(socket.usermobile);
+            userDetail.roomname.push(socket.room);
+            console.log(userDetail);
+            // roomname.push(socket.room);
+            // username.push(socket.username);
+            // usermobile.push(socket.usermobile);
             // updateUsernames()
-            updateUsernames()
+            //updateUsernames()
 
           });
 
           socket.on('new doctorLogged',function(data){   
             console.log("Doctor connected");
-              socket.doctorName = data;
-              doctor.push(socket.doctorName);
-            updateUsernames()
+            //   socket.doctorName = data;
+            //   doctor.push(socket.doctorName);
+            // updateUsernames()
 
            
           });
 
           socket.on('disconnect',function(data){
               console.log(data);
-                roomname.splice(roomname.indexOf(socket.roomname), 1);
-                username.splice(username.indexOf(socket.username), 1);
-                usermobile.splice(usermobile.indexOf(socket.usermobile), 1);
+                // roomname.splice(roomname.indexOf(socket.roomname), 1);
+                // username.splice(username.indexOf(socket.username), 1);
+                // usermobile.splice(usermobile.indexOf(socket.usermobile), 1);
             
-                    doctor.splice(doctor.indexOf(socket.doctorName),1);
+                //     doctor.splice(doctor.indexOf(socket.doctorName),1);
      
-                console.log(doctor);
-                connections.splice(connections.indexOf(socket), 1);
+                // console.log(doctor);
+                // connections.splice(connections.indexOf(socket), 1);
                 console.log("Disconnected: %s sockets Disconnected", connections.length)
  
           });
@@ -118,7 +121,7 @@ var usercount       =[],
         
           function updateUsernames(){
             
-            io.sockets.emit('get users', username);
+           // io.sockets.emit('get users', username);
             
           }
     });
