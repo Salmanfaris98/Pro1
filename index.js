@@ -108,7 +108,8 @@ var usercount       =[],
      
                 console.log(doctor);
                 connections.splice(connections.indexOf(socket), 1);
-                console.log("Disconnected: %s sockets Disconnected", connections.length)
+                console.log("Disconnected: %s sockets Disconnected", connections.length);
+                updateUsernames()
  
           });
           socket.on('send message', function(message,user){
