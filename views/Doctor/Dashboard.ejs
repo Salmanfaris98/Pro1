@@ -16,9 +16,7 @@
             <li>
                 <a href="/doctor/<%=currentUser._id%>/Profile">Profile</a>
             </li>
-            <li>
-                <a href="#">Waiting Room</a>
-            </li>
+            
             <li>
                 <a href="#">Help</a>
             </li>
@@ -65,11 +63,11 @@
             </div>
         </div>
         <div class="messageArea">
-                <div id="chat" class="chat"></div>
+            <h4>Global Waiting Room Chat</h4>
+                <div id="chat" class="chat" style="overflow: auto;resize: vertical;height: 100px;background-color:#8e379033; border-radius: 3px 3px 0px 0px;color: #1a3349;"></div>
                 <form id="messageForm" action="">
                   <div class="form-group">
-                    <label>Enter Message</label>
-                    <textarea class="form-control" id="message"></textarea>
+                       <textarea class="form-control" id="message" placeholder="Enter Your Message"></textarea>
                     <br />
                     <input type="submit" class="btn btn-primary" value="send message" />
                   </div>
