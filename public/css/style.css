@@ -576,3 +576,7 @@ background: linear-gradient(to top, #FFAF7B, #D76D77, #3A1C71); /* W3C, IE 10+/ 
 
 }
 /* Doctor profile styling */
+
+.wis{
+  font-style : italic;
+}

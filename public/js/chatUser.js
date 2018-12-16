@@ -26,6 +26,10 @@ $(function(){
         $message.val('');
       })
 
+      socket.on('Whisper', function(data){
+        $chat.append(' <div class="wis"> <strong>'+data.user+": "+'</strong>' + data.msg + ' </div> ')
+      });
+
       socket.on('new message', function(data){
         $chat.append(' <div class="well"> <strong>'+data.user+": "+'</strong>' + data.msg + ' </div> ')
       });
