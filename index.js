@@ -13,8 +13,8 @@ var express             = require("express"),
     userRoute           = require("./routes/user");
     const PORT = process.env.PORT || 5000    
     
-    //mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
-    mongoose.connect("mongodb://localhost:27017/InstaDoc");
+    mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
+    //mongoose.connect("mongodb://localhost:27017/InstaDoc");
     
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
