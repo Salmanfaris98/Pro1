@@ -13,8 +13,8 @@ var express             = require("express"),
     userRoute           = require("./routes/user");
     const PORT = process.env.PORT || 5000    
     
-    mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
-    //mongoose.connect("mongodb://localhost:27017/InstaDoc");
+   // mongoose.connect("mongodb://beat:beat123@ds211592.mlab.com:11592/instadoc");
+    mongoose.connect("mongodb://localhost:27017/InstaDoc");
     
 app.set("view engine","ejs");
 app.use(bodyParser.urlencoded({extended:true}));
@@ -92,7 +92,8 @@ var actiRoom;
             usernames[socket.username]=socket;
             usermobile.push(socket.usermobile);
             // updateUsernames()
-            updateUsernames()
+            updateUsernames();
+            updateDoc();
             //--------------------------
             var rIndex = findRoom(room);
             actiRoom = actiList[rIndex];
@@ -107,7 +108,8 @@ var actiRoom;
               socket.doctorName = data;
               doctorlist[socket.doctorName] = socket;
               doctor.push(socket.doctorName);
-            updateUsernames()
+            updateUsernames();
+            updateDoc();
 
            
           });
@@ -121,11 +123,13 @@ var actiRoom;
             
                     doctor.splice(doctor.indexOf(socket.doctorName),1);
                     delete doctorlist[socket.doctorName];
+                    updateDoc();
      
                 console.log(doctor);
                 connections.splice(connections.indexOf(socket), 1);
                 console.log("Disconnected: %s sockets Disconnected", connections.length);
                 updateUsernames()
+                updateDoc();
  
           });
           socket.on('send message', function(message,user){
@@ -160,6 +164,12 @@ var actiRoom;
           function updateUsernames(){
             
             io.sockets.emit('get users',Object.keys(usernames));
+            
+          }
+          function updateDoc(){
+            
+            io.sockets.emit('DocList',Object.keys(doctorlist));
+            console.log(Object.keys(doctorlist));
             
           }
           function findRoom(data){

@@ -5,6 +5,8 @@ $(function(){
         $messageForm = $('#messageForm'),
         $message = $('#message'),
         $chat = $('#chat');
+        $doc = $('#doctorName');
+        $status = $('#status');
     //     userSend     = $("#userSend"),
     //     userMessage  = $("#userMessage"),
        // var roomID = window.location.pathname.splitOnLast("/")[1]; //Should ideally be got from req.params.roomid
@@ -33,5 +35,19 @@ $(function(){
       socket.on('new message', function(data){
         $chat.append(' <div class="well"> <strong>'+data.user+": "+'</strong>' + data.msg + ' </div> ')
       });
+      socket.on('DocList', function(list){
+        console.log($doc.text());
+        $status.text(' Offline ')
+       for(i = 0 ;i<list.length;i++){
+         console.log(list[i])
+         if(list[i]==$doc.text()){
+           $status.text(' Online ')
+         }
+
+       }
+
+       })
+      
+    
     
 })
